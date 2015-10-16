@@ -4,8 +4,7 @@
 /*
 The program looks neat. 
 You have comment about function purpose - that is great. It is better though to put it before the prototype
-
-1) Correct calculation of roots. You must not give an array implicitly! 
+ 
 2) add more cases like: a = 0, b = 0, c = 0
                         a = 0, b = 0, c != 0
                         and so on...
@@ -42,10 +41,10 @@ int square(double a, double b, double c, double* x)
 	double disk = b*b - 4*a*c;
 	if (disk >= 0) 
 	{
-		// This is incorrect. the function does not know the size of your double array (x)
+	// Note: be careful when passing arrays implicitly
         // x[2] will give you error
-        x[0] = (-b+sqrt(disk)) / (2*a);
-		x[1] = (-b-sqrt(disk)) / (2*a);
+           x[0] = (-b+sqrt(disk)) / (2*a);
+	   x[1] = (-b-sqrt(disk)) / (2*a);
 	} else 
 		return -1;
 	return 0;
