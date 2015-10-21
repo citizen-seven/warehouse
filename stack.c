@@ -94,6 +94,7 @@ int main()
 
 }
 
+
 void push(char a, stack* funk)
 {
     if ((funk -> tmp) >= (funk -> size))
