@@ -1,0 +1,27 @@
+# depslib dependency file v1.0
+1446399504 source:/home/nikita/Documents/Intel/Stack/Stack/Stack.c
+	<stdio.h>
+	<stdlib.h>
+	"Stack.h"
+
+1446397948 /home/nikita/Documents/Intel/Stack/Stack/Stack.h
+	<stdio.h>
+	<stdlib.h>
+
+1446399646 source:/home/nikita/Documents/Intel/Stack/Stack/Resource.c
+	<stdio.h>
+	<stdlib.h>
+
+1446399646 source:/home/nikita/Documents/Intel/ilab/warehouse/Stack/Resource.c
+	<stdio.h>
+	<stdlib.h>
+
+1446399504 source:/home/nikita/Documents/Intel/ilab/warehouse/Stack/Stack.c
+	<stdio.h>
+	<stdlib.h>
+	"Stack.h"
+
+1446397948 /home/nikita/Documents/Intel/ilab/warehouse/Stack/Stack.h
+	<stdio.h>
+	<stdlib.h>
+
