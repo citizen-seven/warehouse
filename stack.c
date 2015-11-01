@@ -9,7 +9,7 @@ typedef struct
 } stack;
 
 void push(char a,stack* funk);
-void pop(stack* funk);
+int pop(stack* funk);
 
 int main()
 {
@@ -18,7 +18,7 @@ int main()
     int i = 0;
     stack d;
     stack* funk=&d;
-    funk -> value = (char*) malloc (8 * sizeof(char));
+    d.value = (char*) malloc (8 * sizeof(char));
     funk -> size = 8;
     funk -> tmp = 0;
     while(str[i] != '\0')
@@ -44,9 +44,8 @@ int main()
                     break;
                 }
              case ')':
-                if (funk -> value[funk -> tmp - 1] == '(')
+                if (pop(funk) == '(')
                 {
-                    pop(funk);
                     i++;
                 }
                 else
@@ -57,9 +56,8 @@ int main()
                 }
                 break;
              case '}':
-                if (funk -> value[funk -> tmp - 1] == '{')
+                if (pop(funk) == '{')
                     {
-                        pop(funk);
                         i++;
                     }
                     else
@@ -70,9 +68,8 @@ int main()
                     }
                     break;
              case ']':
-                if (funk -> value[funk -> tmp - 1] == '[')
+                if (pop(funk) == '[')
                     {
-                        pop(funk);
                         i++;
                     }
                     else
@@ -94,12 +91,11 @@ int main()
 
 }
 
-
 void push(char a, stack* funk)
 {
     if ((funk -> tmp) >= (funk -> size))
     {
-        funk -> value = (char*) realloc(funk, 2 * (funk -> size) * sizeof(char));
+        funk -> value = (char*) realloc(funk->value, 2 * (funk -> size) * sizeof(char));
         funk -> size = 2 * funk -> size;
     }
     if ((funk -> tmp) < (funk -> size))
@@ -109,9 +105,10 @@ void push(char a, stack* funk)
     }
 }
 
-void pop(stack* funk)
+int pop(stack* funk)
 {
     funk -> tmp --;
-    if (funk -> tmp < 3 / 8 * funk -> size)
-        funk -> value = (char*) realloc(funk, 1 / 2 * sizeof(char));
+    if (funk -> tmp < 3 / 8 * funk -> size )
+       funk -> value = (char*) realloc(funk->value, 1 / 2 * (funk -> size) * sizeof(char));
+    return funk -> value[funk -> tmp];
 }
