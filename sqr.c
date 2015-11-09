@@ -1,6 +1,18 @@
 #include <stdio.h>
 #include <math.h>
 
+/*
+I was about to accept the program...
+It doesn't work correctly. Try (1 -2 1), (1 -4 4), (1 -1 -1).
+
+PLEASE check the code style. Indentations are not correct.
+You can also say when you have imaginary roots.
+If-else construction is very complicated without praces. And also looks incorrect.
+Like when you have a != 0 and a*c < 0...
+
+Look closely please :)
+*/
+
 // The function, who calculate roots of quadratic equation
 int square(double a, double b, double c, double* x);
 
