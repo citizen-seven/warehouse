@@ -11,6 +11,13 @@ typedef struct
 void push(char a,stack* funk);
 int pop(stack* funk);
 
+/*
+1) Should be check in POP before you decrement tmp. It causes errors, for example on sequence: ))
+2) you have i++ exañåly in every one of switch cases. why not take it out of switch?
+3) There is a default case in switch, which will definitely help you with errors. (like number in you sequence)
+4) see comments below
+*/
+
 int main()
 {
     char* str = (char*) malloc (100 * sizeof(char));
@@ -19,8 +26,8 @@ int main()
     stack d;
     stack* funk=&d;
     d.value = (char*) malloc (8 * sizeof(char));
-    funk -> size = 8;
-    funk -> tmp = 0;
+    funk -> size = 8;  // what is the reason for this? you can use d.value, and d.tmp.
+    funk -> tmp = 0;   // why create new variable?
     while(str[i] != '\0')
     {
         switch(str[i])
@@ -50,8 +57,8 @@ int main()
                 }
                 else
                 {
-                    i++;
-                    printf("No");
+                    i++; // what's that for?
+                    printf("No"); // again, maybe smth like "Incorrect"?
                     exit(0);
                 }
                 break;
@@ -107,8 +114,10 @@ void push(char a, stack* funk)
 
 int pop(stack* funk)
 {
+    // here should be check
     funk -> tmp --;
     if (funk -> tmp < 3 / 8 * funk -> size )
        funk -> value = (char*) realloc(funk->value, 1 / 2 * (funk -> size) * sizeof(char));
+    // you have changed the size, but not the size variable!!
     return funk -> value[funk -> tmp];
 }
