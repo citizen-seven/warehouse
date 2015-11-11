@@ -1,0 +1,1 @@
+push 256 push 257 pop add multi sub end
