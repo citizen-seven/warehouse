@@ -41,17 +41,17 @@ int main()
 int progtocom(char* st)
 {
     if(!strcmp(st, "push"))
-        return(push_cmd);
+        return push_cmd;
     else if(!strcmp(st, "pop"))
-        return(pop_cmd);
+        return pop_cmd;
     else if(!strcmp(st, "add"))
-        return(add_cmd);
+        return add_cmd;
     else if(!strcmp(st, "sub"))
-        return(sub_cmd);
+        return sub_cmd;
     else if(!strcmp(st, "multi"))
-        return(multi_cmd);
+        return multi_cmd;
     else if(!strcmp(st, "div"))
-        return(div_cmd);
+        return div_cmd;
     else if(!strcmp(st, "end"))
-        return(end_cmd);
+        return end_cmd;
 }
