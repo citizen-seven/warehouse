@@ -31,13 +31,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="Resource.c">
+		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Stack.c">
+		<Unit filename="stack.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Stack.h" />
+		<Unit filename="stack.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
