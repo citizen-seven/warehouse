@@ -6,11 +6,11 @@
 
 typedef struct tree
 {
-    char sign;
-    int data;
-    struct tree* left_next;
-    struct tree* right_next;
-    struct tree* prev;
+    char sign;                 //Field of sign
+    int data;                  //Field of value
+    struct tree* left_next;    //Pointer on left child
+    struct tree* right_next;   //Pointer on right child
+    struct tree* prev;         //Pointre on perents
 } tree, *p_tree;
 
 p_tree tree_ctor();
