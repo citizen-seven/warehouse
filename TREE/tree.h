@@ -8,14 +8,12 @@ typedef struct tree
 {
     char sign;                 //Field of sign
     int data;                  //Field of value
-    struct tree* left_next;    //Pointer on left child
-    struct tree* right_next;   //Pointer on right child
+    struct tree* left;         //Pointer on left child
+    struct tree* right;        //Pointer on right child
     struct tree* prev;         //Pointre on perents
 } tree, *p_tree;
 
 p_tree tree_ctor();
-void tree_dtor_left(p_tree TREE);
-void tree_dtor_right(p_tree TREE);
 void tree_dtor(p_tree TREE);
 void tree_put_sign_left(p_tree TREE, char sign);
 void tree_put_sign_right(p_tree TREE, char sign);
