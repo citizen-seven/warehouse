@@ -23,5 +23,6 @@ int tree_int_len(char* ptr, int* ret_val);
 void tree_go_forward(p_tree* TREE);
 void tree_put_exp(p_tree TREE, char* str);
 int tree_culc(p_tree TREE);
+void tree_dump(p_tree TREE);
 
 #endif // TREE_H_INCLUDED

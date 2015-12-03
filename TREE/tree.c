@@ -90,9 +90,18 @@ void tree_put_exp(p_tree TREE, char* str) //This function convert string into tr
         {
             if ((TREE -> prev) && (ptr[i] >= '+') && (ptr[i] <= '-') && ((TREE -> prev -> sign == '*') || (TREE -> prev -> sign == '/')))
             {
-                TREE -> prev = TREE->prev -> prev;
-                TREE -> prev -> right = NULL;
+                TREE -> prev = TREE -> prev -> prev;
+                TREE -> left = NULL;
                 TREE -> right = TREE -> prev;
+                tmp = TREE -> prev;
+                TREE -> prev = TREE;
+                TREE = tmp;
+            }
+            if ((TREE -> prev) && ((ptr[i] == '*') || (ptr[i] <= '-')) && ((TREE -> prev -> sign == '*') || (TREE -> prev -> sign == '/')))
+            {
+                TREE -> prev = TREE -> prev -> prev;
+                TREE -> right = NULL;
+                TREE -> left = TREE -> prev;
                 tmp = TREE -> prev;
                 TREE -> prev = TREE;
                 TREE = tmp;
@@ -141,4 +150,13 @@ int tree_culc(p_tree TREE) //This function consider math mathematical expression
         return TREE -> data;
     }
     return 0xBAD;
+}
+
+void tree_dump(p_tree TREE)
+{
+    if (TREE -> left)
+        tree_dump(TREE -> left);
+    if (TREE -> right)
+        tree_dump(TREE -> right);
+    printf("|%d %c| ", TREE -> data, TREE -> sign);
 }

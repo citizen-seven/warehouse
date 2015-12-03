@@ -12,6 +12,8 @@ int main()
     printf("%s = ", str);
     tree_put_exp(tmp, str);
     printf("%d", tree_culc(test));
-    //tree_dtor(test);
+    printf("\n");
+    tree_dump(test);
+    tree_dtor(test);
     return 0;
 }
