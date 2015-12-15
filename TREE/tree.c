@@ -22,7 +22,7 @@ void tree_dtor(p_tree TREE) //This function delete and destroy tree
         tree_dtor(TREE -> right);
     free(TREE);
 }
-
+/*
 void tree_put_sign_left(p_tree TREE, char sign) //This function put sign into field "sign" of the left child of tree
 {
     TREE -> left = tree_ctor();
@@ -38,7 +38,7 @@ void tree_put_sign_right(p_tree TREE, char sign) //This function put sign into f
     TREE -> right -> sign = sign;
     TREE -> right -> data = 0;
 }
-
+*/
 void tree_put_data_left(p_tree TREE, int data) //This function put value into field "data" of the left child of tree
 {
     TREE -> left = tree_ctor();
@@ -70,14 +70,14 @@ int tree_int_len(char* ptr, int* ret_val) //This function return number of digit
     return j;
 }
 
-void tree_go_forward(p_tree* TREE) //This function move pointer on the right child
+void tree_go_forward(p_tree TREE) //This function move pointer on the right child
 {
-    p_tree tmp = *TREE;
-    *TREE = tree_ctor();
-    tmp->right = *TREE;
+    p_tree tmp = TREE;
+    TREE = tree_ctor();
+    tmp -> right = TREE;
 }
 
-void tree_put_exp(p_tree TREE, char* str) //This function convert string into tree
+p_tree tree_put_exp(p_tree TREE, char* str) //This function convert string into tree
 {
     char* ptr = str;
     p_tree tmp;
@@ -86,45 +86,69 @@ void tree_put_exp(p_tree TREE, char* str) //This function convert string into tr
     int i = 0;
     while(i  < length - 1)
     {
-        if ((ptr[i] >= '*') && (ptr[i] <= '/'))
+       if ((ptr[i] >= '0') && (ptr[i] <= '9'))
         {
-            if ((TREE -> prev) && (ptr[i] >= '+') && (ptr[i] <= '-') && ((TREE -> prev -> sign == '*') || (TREE -> prev -> sign == '/')))
-            {
-                TREE -> prev = TREE -> prev -> prev;
-                TREE -> left = NULL;
-                TREE -> right = TREE -> prev;
-                tmp = TREE -> prev;
-                TREE -> prev = TREE;
-                TREE = tmp;
-            }
-            if ((TREE -> prev) && ((ptr[i] == '*') || (ptr[i] <= '-')) && ((TREE -> prev -> sign == '*') || (TREE -> prev -> sign == '/')))
-            {
-                TREE -> prev = TREE -> prev -> prev;
-                TREE -> right = NULL;
-                TREE -> left = TREE -> prev;
-                tmp = TREE -> prev;
-                TREE -> prev = TREE;
-                TREE = tmp;
-            }
-            else
+            i += tree_int_len(ptr + i, &tmp_int);
+            TREE -> data = tmp_int;
+        }
+        else if ((ptr[i] == '*')  || (ptr[i] == '/')  || (ptr[i] == '+') || (ptr[i] == '-'))
+        {
+            if ((TREE -> left) || (TREE -> right))
             {
                 TREE -> data = 0;
                 TREE -> sign = ptr[i];
-                tree_go_forward(&TREE);
                 i++;
+                i += tree_int_len(ptr + i, &tmp_int);
+                tree_put_data_right(TREE, tmp_int);
+                tmp = tree_ctor();
+                tmp -> left = TREE;
+                TREE -> prev = tmp;
+                TREE = tmp;
+                tree_dump(TREE);
             }
-        }
-        else if ((ptr[i] >= '0') && (ptr[i] <= '9')) //If number then put it into filed "data" of the left child of tree
+            else
+            {
+                tree_put_data_left(TREE, TREE -> data);
+                TREE -> data = 0;
+                TREE -> sign = ptr[i];
+                i++;
+                i += tree_int_len(ptr + i, &tmp_int);
+                tree_put_data_right(TREE, tmp_int);
+                tmp = tree_ctor();
+                tmp -> left = TREE;
+                TREE -> prev = tmp;
+                TREE = tmp;
+                tree_dump(TREE);
+            }
+        }/*
+        else if ((ptr[i] == '+') || (ptr[i] == '-'))
         {
-            i += tree_int_len(ptr + i, &tmp_int);
-            tree_put_data_left(TREE, tmp_int);
-        }
+             if (TREE -> left)
+            {
+                TREE -> sign = ptr[i];
+                i++;
+                i += tree_int_len(ptr + i, &tmp_int);
+                tree_put_data_right(TREE, tmp_int);
+                TREE = TREE -> right;
+            }
+            else
+            {
+                tree_put_data_left(TREE, TREE -> data);
+                TREE -> data = 0;
+                TREE -> sign = ptr[i];
+                i++;
+                i += tree_int_len(ptr + i, &tmp_int);
+                tree_put_data_right(TREE, tmp_int);
+                TREE = TREE -> right;
+            }
+        }*/
         else
         {
             printf("This imposible consider");
             exit(1);
         }
     }
+    return TREE;
 }
 
 int tree_culc(p_tree TREE) //This function consider math mathematical expression
@@ -156,7 +180,71 @@ void tree_dump(p_tree TREE)
 {
     if (TREE -> left)
         tree_dump(TREE -> left);
+    printf("|%d %c| ", TREE -> data, TREE -> sign);
     if (TREE -> right)
         tree_dump(TREE -> right);
-    printf("|%d %c| ", TREE -> data, TREE -> sign);
+    printf("\n \n");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*if ((ptr[i] >= '*') && (ptr[i] <= '/'))
+        {
+            if ((TREE -> prev) && (ptr[i] >= '+') && (ptr[i] <= '-') && ((TREE -> prev -> sign == '*') || (TREE -> prev -> sign == '/')))
+            {
+                TREE -> prev = TREE -> prev -> prev;
+                TREE -> left = NULL;
+                TREE -> right = TREE -> prev;
+                tmp = TREE -> prev;
+                TREE -> prev = TREE;
+                TREE = tmp;
+                i++;
+            }
+            if ((TREE -> prev) && ((ptr[i] == '*') || (ptr[i] <= '-')) && ((TREE -> prev -> sign == '*') || (TREE -> prev -> sign == '/')))
+            {
+                TREE -> prev = TREE -> prev -> prev;
+                TREE -> right = NULL;
+                TREE -> left = TREE -> prev;
+                tmp = TREE -> prev;
+                TREE -> prev = TREE;
+                TREE = tmp;
+                i++;
+            }
+            else
+            {
+                TREE -> data = 0;
+                TREE -> sign = ptr[i];
+                tree_go_forward(&TREE);
+                i++;
+            }
+        }
+        else if ((ptr[i] >= '0') && (ptr[i] <= '9')) //If number then put it into filed "data" of the left child of tree
+        {
+            i += tree_int_len(ptr + i, &tmp_int);
+            tree_put_data_left(TREE, tmp_int);
+        }*/

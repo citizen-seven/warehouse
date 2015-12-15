@@ -10,10 +10,9 @@ int main()
     char str[100];
     scanf("%s", str);
     printf("%s = ", str);
-    tree_put_exp(tmp, str);
-    printf("%d", tree_culc(test));
+    printf("%d", tree_culc( tree_put_exp(tmp, str) -> left ));
     printf("\n");
-    tree_dump(test);
     tree_dtor(test);
+
     return 0;
 }
