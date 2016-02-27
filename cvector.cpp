@@ -13,7 +13,7 @@ class CVector
 {
     private:
         static int size_;
-        int data_[MAX_SIZE]; // SIZE!!
+        int data_[MAX_SIZE];
     public:
         CVector();
         ~CVector();
@@ -30,22 +30,22 @@ int CVector::size_ = 5;
 CVector::CVector()
 {
     int i;
-    for(i = 0; i < size_; i++)
+    for (i = 0; i < size_; i++)
         data_[i] = 0;
 }
 
 CVector::~CVector()
 {
     int i;
-    for(i = 0; i < size_; i++)
+    for (i = 0; i < size_; i++)
         data_[i] = 0;
 }
 
  void CVector::VDump()
  {
     int i;
-    for(i = 0; i < size_; i++)
-        cout<<data_[i]<<" " ; // spaces
+    for (i = 0; i < size_; i++)
+        cout<<data_[i]<<" ";
     cout<<endl;
  }
 
@@ -58,5 +58,5 @@ int main()
     V.VDump();
     V[0] = 1;
     V.VDump();
-    return 0; // return
+    return 0;
 }
