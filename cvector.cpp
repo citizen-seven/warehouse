@@ -30,21 +30,21 @@ int CVector::size_ = 5;
 CVector::CVector()
 {
     int i;
-    for (i = 0; i < size_; i++)
+    for(i = 0; i < size_; i++)
         data_[i] = 0;
 }
 
 CVector::~CVector()
 {
     int i;
-    for (i = 0; i < size_; i++)
+    for(i = 0; i < size_; i++)
         data_[i] = 0;
 }
 
  void CVector::VDump()
  {
     int i;
-    for (i = 0; i < size_; i++)
+    for(i = 0; i < size_; i++)
         cout<<data_[i]<<" ";
     cout<<endl;
  }

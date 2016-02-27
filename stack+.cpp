@@ -34,7 +34,7 @@ CStack::CStack():
                 cout << "You have already made 5 stacks.\nAre you sure want to make more?\nEnter password.. ";
                 char* password = new char[100];
                 cin >> password;
-                if (strcmp("Angel1963\0", password))
+                if(strcmp("Angel1963\0", password))
                     {
                         cout << "You enter incoorect password";
                         exit(-1);
@@ -46,7 +46,7 @@ CStack::CStack():
 CStack::~CStack()
 {
     int i;
-    for (i = 0; i < size_; i++)
+    for(i = 0; i < size_; i++)
         data_[i] = 0x0BAD;
     size_ = -1;
     counter--;
@@ -54,7 +54,7 @@ CStack::~CStack()
 
 int CStack::Ok()
 {
-    if (size_ >= 0 && size_ <= MAX_SIZE)
+    if(size_ >= 0 && size_ <= MAX_SIZE)
         return 1;
     else
         return 0;
@@ -62,7 +62,7 @@ int CStack::Ok()
 
 void CStack::Dump()
 {
-    if (Ok() == 0)
+    if(Ok() == 0)
          cout << "Stack is incoorect";
     else
     {
@@ -75,7 +75,7 @@ void CStack::Dump()
 
 void CStack::Push(int val)
 {
-    if (Ok() == 0)
+    if(Ok() == 0)
          cout << "Stack is incoorect";
     else
     {
@@ -86,7 +86,7 @@ void CStack::Push(int val)
 
 int CStack::Pop()
 {
-    if (Ok() == 0)
+    if(Ok() == 0)
     {
          cout << "Stack is incoorect";
          return 0x0BAD;
