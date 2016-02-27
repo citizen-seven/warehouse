@@ -1,4 +1,3 @@
-#include <stdio.h> // this is a C library. same comment as in CStack
 #include <iostream>
 #include <cassert>
 #include <cstring>
@@ -8,12 +7,13 @@
 #include <assert.h>
 
 using namespace std;
+const int MAX_SIZE = 32;
 
 class CVector
 {
     private:
         static int size_;
-        int data_[]; // SIZE!!
+        int data_[MAX_SIZE]; // SIZE!!
     public:
         CVector();
         ~CVector();
@@ -45,16 +45,18 @@ CVector::~CVector()
  {
     int i;
     for(i = 0; i < size_; i++)
-        cout<<data_[i]<<endl; // spaces
+        cout<<data_[i]<<" " ; // spaces
+    cout<<endl;
  }
 
 int main()
 {
     CVector V;
-    V[0] = 1;
-    V[1] = 2;
-    int a = V[0];
-    cout<<a<<endl; // spaces
     V.VDump();
-    // return
+    V[0] = 2;
+    V[4] = 5;
+    V.VDump();
+    V[0] = 1;
+    V.VDump();
+    return 0; // return
 }
