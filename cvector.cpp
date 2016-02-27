@@ -3,8 +3,6 @@
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
-#include <stdlib.h>
-#include <assert.h>
 
 using namespace std;
 const int MAX_SIZE = 32;
