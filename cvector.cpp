@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h> // this is a C library. same comment as in CStack
 #include <iostream>
 #include <cassert>
 #include <cstring>
@@ -13,7 +13,7 @@ class CVector
 {
     private:
         static int size_;
-        int data_[];
+        int data_[]; // SIZE!!
     public:
         CVector();
         ~CVector();
@@ -45,7 +45,7 @@ CVector::~CVector()
  {
     int i;
     for(i = 0; i < size_; i++)
-        cout<<data_[i]<<endl;
+        cout<<data_[i]<<endl; // spaces
  }
 
 int main()
@@ -54,6 +54,7 @@ int main()
     V[0] = 1;
     V[1] = 2;
     int a = V[0];
-    cout<<a<<endl;
+    cout<<a<<endl; // spaces
     V.VDump();
+    // return
 }
