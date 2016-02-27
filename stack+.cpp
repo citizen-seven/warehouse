@@ -29,7 +29,7 @@ int CStack::counter = 0;
 CStack::CStack():
     data_({}), // supported starting std=c++11 and must NOT be parenthesized
                // both data_{0} and data_{} is possible.
-    size_(0)  // FINE, lets make a ZERO size stack and wonder why nothing is working...
+    size_(0)
     {
         ++counter;
         if(counter > 1)
@@ -83,7 +83,7 @@ void CStack::myPush(int val)
 void CStack::myPop()
 {
     // Stack check is missing
-    data_[size_ - 1] = 0x0BAD;
+    data_[size_ - 1] = 0x0BAD;  // data_[--size_]
     size_--;
 }
 
