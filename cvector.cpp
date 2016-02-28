@@ -15,6 +15,19 @@ class CVector
     public:
         CVector();
         ~CVector();
+        int Vsize()
+        {
+            return size_;
+        }
+        CVector operator + (CVector val)
+        {
+            assert(size_ == val.size_);
+            CVector exp;
+            int i;
+            for(i = 0; i < size_; i++)
+                exp[i] = data_[i] + val[i];
+            return exp;
+        }
         int& operator [] (int index)
         {
             assert(0 <= index && index < size_);
@@ -47,14 +60,20 @@ CVector::~CVector()
     cout<<endl;
  }
 
+
 int main()
 {
-    CVector V;
+    CVector V, V1, V2;
+    int i;
+    for(i = 0; i < V.Vsize(); i++)
+    {
+        V1[i] = i;
+        V2[i] = i +1;
+    }
+    V1.VDump();
+    V2.VDump();
     V.VDump();
-    V[0] = 2;
-    V[4] = 5;
-    V.VDump();
-    V[0] = 1;
+    V = V1 + V2;
     V.VDump();
     return 0;
 }
