@@ -21,7 +21,7 @@ class CVector
         }
         CVector operator + (CVector val)
         {
-            assert(size_ == val.size_);
+            assert(size_ == val.Vsize());
             CVector exp;
             int i;
             for(i = 0; i < size_; i++)
@@ -32,6 +32,15 @@ class CVector
         {
             assert(0 <= index && index < size_);
             return data_[index];
+        }
+        int& operator () (CVector val) // scalar product
+        {
+            assert(size_ == val.Vsize());
+            int exp = 0;
+            int i;
+            for(i = 0; i < size_; i++)
+                exp += data_[i] * val[i];
+            return exp;
         }
         void VDump();
 };
@@ -75,5 +84,7 @@ int main()
     V.VDump();
     V = V1 + V2;
     V.VDump();
+    int sk = V1(V2);
+    cout << sk;
     return 0;
 }
