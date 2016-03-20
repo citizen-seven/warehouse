@@ -3,15 +3,17 @@
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+#define type template <typename T>
 
 using namespace std;
 const int MAX_SIZE = 32;
 
+type
 class CVector
 {
     private:
         static int size_;
-        int data_[MAX_SIZE];
+        T data_[MAX_SIZE];
     public:
         CVector();
         ~CVector();
@@ -19,7 +21,7 @@ class CVector
         {
             return size_;
         }
-        CVector operator + (CVector val)
+        CVector<T> operator + (CVector val)
         {
             assert(size_ == val.Vsize());
             CVector exp;
@@ -33,7 +35,7 @@ class CVector
             assert(0 <= index && index < size_);
             return data_[index];
         }
-        int& operator () (CVector val) // scalar product
+        int& operator ^ (CVector val) // scalar product
         {
             assert(size_ == val.Vsize());
             int exp = 0;
@@ -45,23 +47,27 @@ class CVector
         void VDump();
 };
 
-int CVector::size_ = 5;
+type
+int CVector<T>::size_ = 5;
 
-CVector::CVector()
+type
+CVector<T>::CVector()
 {
     int i;
     for(i = 0; i < size_; i++)
         data_[i] = 0;
 }
 
-CVector::~CVector()
+type
+CVector<T>::~CVector()
 {
     int i;
     for(i = 0; i < size_; i++)
         data_[i] = 0;
 }
 
- void CVector::VDump()
+type
+void CVector<T>::VDump()
  {
     int i;
     for(i = 0; i < size_; i++)
@@ -72,7 +78,7 @@ CVector::~CVector()
 
 int main()
 {
-    CVector V, V1, V2;
+    CVector<int> V, V1, V2;
     int i;
     for(i = 0; i < V.Vsize(); i++)
     {
@@ -84,7 +90,7 @@ int main()
     V.VDump();
     V = V1 + V2;
     V.VDump();
-    int sk = V1(V2);
+    int sk = V1 ^ V2;
     cout << sk;
     return 0;
 }
