@@ -21,24 +21,24 @@ class CVector
         {
             return size_;
         }
-        CVector<T> operator + (CVector val)
+        CVector<T> operator + (CVector<T>& val)
         {
             assert(size_ == val.Vsize());
-            CVector exp;
+            CVector<T> exp;
             int i;
             for(i = 0; i < size_; i++)
                 exp[i] = data_[i] + val[i];
             return exp;
         }
-        int& operator [] (int index)
+        T& operator [] (int index)
         {
             assert(0 <= index && index < size_);
             return data_[index];
         }
-        int& operator ^ (CVector val) // scalar product
+        T operator ^ (CVector<T>& val) // scalar product
         {
             assert(size_ == val.Vsize());
-            int exp = 0;
+            T exp = 0;
             int i;
             for(i = 0; i < size_; i++)
                 exp += data_[i] * val[i];
@@ -71,26 +71,48 @@ void CVector<T>::VDump()
  {
     int i;
     for(i = 0; i < size_; i++)
-        cout<<data_[i]<<" ";
-    cout<<endl;
+        cout << data_[i] << "\t";
+    cout << endl;
  }
+
+template < >
+CVector<bool> CVector<bool>::operator + (CVector<bool>& val)
+{
+	assert(size_ == val.Vsize());
+	CVector<bool> exp;
+	int i;
+	for(i = 0; i < size_; i++)
+		exp[i] = (data_[i] + val[i]) % 2;
+	return exp;
+}
 
 
 int main()
 {
-    CVector<int> V, V1, V2;
+    CVector<double> V, V1, V2;
     int i;
     for(i = 0; i < V.Vsize(); i++)
     {
-        V1[i] = i;
-        V2[i] = i +1;
+        V1[i] = i + 0.5;
+        V2[i] = i + 1;
     }
     V1.VDump();
     V2.VDump();
     V.VDump();
     V = V1 + V2;
     V.VDump();
-    int sk = V1 ^ V2;
-    cout << sk;
+    double sk = V1 ^ V2;
+    cout << sk << endl;
+
+	CVector<bool> V3, V4, V5;
+	for(i = 0; i < V.Vsize(); i++)
+		{
+		    V3[i] = (7*i) % 2;
+		    V4[i] = (5*i+6) % 2;
+    	}
+	V3.VDump();
+    V4.VDump();
+    V5 = V3 + V4;
+    V5.VDump();
     return 0;
 }
