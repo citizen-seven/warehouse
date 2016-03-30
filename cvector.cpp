@@ -1,8 +1,10 @@
 #include <iostream>
 #include <cassert>
+// you dont need those libs...
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+//
 #define type template <typename T>
 
 using namespace std;
@@ -48,7 +50,10 @@ class CVector
 };
 
 type
-int CVector<T>::size_ = 5;
+int CVector<T>::size_ = 5; 
+// what if size_ > MAX_SIZE
+// why do you initialize it here as global, rather then using constructors?
+// and making it not const global you open it to changes from every method of CVector
 
 type
 CVector<T>::CVector()
@@ -64,6 +69,8 @@ CVector<T>::~CVector()
     int i;
     for(i = 0; i < size_; i++)
         data_[i] = 0;
+    // destructor must be obvious. You must know somehow when vector is destroyed.
+    // for example: size_ = -1 !!! not possible because you have static size_
 }
 
 type
@@ -75,8 +82,11 @@ void CVector<T>::VDump()
     cout << endl;
  }
 
-template < >
-CVector<bool> CVector<bool>::operator + (CVector<bool>& val)
+template <>
+CVector<bool> CVector<bool>::operator + (CVector<bool>& val) 
+  // what you did here is not +, but ^ (exclusive OR = XOR)
+  // it is not a mistake, just saying :) 
+  // more reasonable to use operator^
 {
 	assert(size_ == val.Vsize());
 	CVector<bool> exp;
