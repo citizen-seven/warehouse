@@ -1,10 +1,6 @@
 #include <iostream>
 #include <cassert>
-// you dont need those libs...
-#include <cstring>
-#include <cstdlib>
-#include <cstdio>
-//
+
 #define type template <typename T>
 
 using namespace std;
@@ -14,7 +10,7 @@ type
 class CVector
 {
     private:
-        static int size_;
+        int size_;
         T data_[MAX_SIZE];
     public:
         CVector();
@@ -50,14 +46,9 @@ class CVector
 };
 
 type
-int CVector<T>::size_ = 5; 
-// what if size_ > MAX_SIZE
-// why do you initialize it here as global, rather then using constructors?
-// and making it not const global you open it to changes from every method of CVector
-
-type
 CVector<T>::CVector()
 {
+    size_ = 5;
     int i;
     for(i = 0; i < size_; i++)
         data_[i] = 0;
@@ -68,25 +59,22 @@ CVector<T>::~CVector()
 {
     int i;
     for(i = 0; i < size_; i++)
-        data_[i] = 0;
-    // destructor must be obvious. You must know somehow when vector is destroyed.
-    // for example: size_ = -1 !!! not possible because you have static size_
+        data_[i] = 0xBAD;
+    size_ = -1;
 }
 
 type
 void CVector<T>::VDump()
  {
     int i;
-    for(i = 0; i < size_; i++)
-        cout << data_[i] << "\t";
-    cout << endl;
+    cout<<"(";
+    for(i = 0; i < size_ - 1; i++)
+        cout << data_[i] << ", ";
+    cout <<data_[i]<<")"<< endl;
  }
 
 template <>
 CVector<bool> CVector<bool>::operator + (CVector<bool>& val) 
-  // what you did here is not +, but ^ (exclusive OR = XOR)
-  // it is not a mistake, just saying :) 
-  // more reasonable to use operator^
 {
 	assert(size_ == val.Vsize());
 	CVector<bool> exp;
@@ -112,13 +100,13 @@ int main()
     V = V1 + V2;
     V.VDump();
     double sk = V1 ^ V2;
-    cout << sk << endl;
+    cout << "scalar product = "<< sk << endl;
 
 	CVector<bool> V3, V4, V5;
 	for(i = 0; i < V.Vsize(); i++)
 		{
-		    V3[i] = (7*i) % 2;
-		    V4[i] = (5*i+6) % 2;
+		    V3[i] = (7 * i + 1) % 2;
+		    V4[i] = (5 * i + 6) % 2;
     	}
 	V3.VDump();
     V4.VDump();
