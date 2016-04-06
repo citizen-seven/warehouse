@@ -1,0 +1,33 @@
+#include "Math.h"
+
+enum c_type
+{
+	Number,
+	Sign,
+	Varible,
+	Function
+};
+
+class CNode
+{
+	private:
+		c_type type;
+		double value;
+		char sign;
+		char var;
+		CNode* left;
+		CNode* right;
+		CNode* prev;
+	public:
+		CNode(c_type tp)
+		{
+			this -> type = tp;
+			this -> left = NULL;
+			this -> right = NULL;
+			this -> prev = NULL;
+		}
+		~CNode()
+		{
+			free(this);
+		}
+};

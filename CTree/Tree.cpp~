@@ -1,0 +1,14 @@
+#include "Tree.h"
+
+CNode:: CNode(c_type tp)
+{
+	this -> type = tp;
+	this -> left = NULL;
+	this -> right = NULL;
+	this -> prev = NULL;
+}
+
+CNode:: ~CNode()
+{
+	free(this);
+}
