@@ -7,22 +7,14 @@ main()
 	CNode* node = test.GetExp();
 	node -> GoDump(0);
 
-	/*if (test.Debug())
-		printf("We have problems!!\n");
-
-	CNode* node_Sign = new CNode;
-	node_Sign -> PutSign(Sign, '+');
-
-	CNode* node_Num = new CNode;
-	node_Num -> PutNum(Number, 2);
-
-	CNode* node_Var = new CNode;
-	node_Var -> PutVar(Varible, 'x');
-
-	node_Sign -> TieLeft(node_Num);
-	node_Sign -> TieRight(node_Var);
-	node_Sign -> GoDump(0);
-*/
 	delete node;
 	return 0;
 }
+
+/*
++	1) мусор из папки 
++	2) CodeStile и настройки Subl 
++	3) Include
++-	4) Сделать функцию GetEqv() и PrepereEqv(){удаляет пробелы и каидает exception, а так же возращает скопированную строку}
+	5) Exception
+	6) нестандартный конструктор*/

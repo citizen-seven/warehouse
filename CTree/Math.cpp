@@ -1,20 +1,29 @@
 #include "Math.h"
+#include "Tree.h"
 
 Math:: Math():
 	error(0)
 {
-	FILE* File = fopen("exp.txt", "r");
-	char* string = (char*)calloc(100, sizeof(char));
-	fgets(string, 100, File);
-	fclose(File);
-	S = string;
-	str = string;
+	GetEquation();
 }
 
 Math::~Math()
+{}
+
+void Math::GetEquation()
 {
-	free(str);
-	error = 0;
+	ifstream File;
+	File.open ("exp.txt");
+	if (File.is_open()) printf("File is open\n");
+	File >> str;
+	//cout << str << endl;
+	File.close();
+	S = str.begin();
+}
+
+void Math::PrepareEquation()
+{
+
 }
 
 void  Math::GetSkip()
@@ -22,24 +31,18 @@ void  Math::GetSkip()
 	while(*S == ' ' || *S == 10)
 	{
 		S++;
-	}
+	} 
 }
 
 CNode* Math::GetNum()
 {
 	GetSkip();
-	char* debug = S;
 	double val = 0.0;
 	while('0' <= *S && *S <= '9')
 	{
 		val = val*10 + *S - '0';
 		S++;
-	}/*
-	if (S == debug)
-	{
-		error = 1;
-		return 0xBAD;
-	}*/
+	}
 	CNode* tmp = new CNode;
 	tmp -> PutNum(Number, val);
 	return tmp;
@@ -71,12 +74,8 @@ CNode* Math::GetExp()
 			tmp = GetMulDiv();
 			tmp1 -> TieRight(tmp);
 			tmp = tmp1;
-		} /*
-		else
-		{
-			error = 1;
-			return 0xBAD;
-		}*/
+		}
+		GetSkip();
 	}
 	return tmp;
 }
@@ -107,12 +106,8 @@ CNode* Math::GetMulDiv()
 			tmp = GetPas();
 			tmp1 -> TieRight(tmp);
 			tmp = tmp1;
-		}/*
-		else
-		{
-			error = 1;
-			return 0xBAD;
-		}*/
+		}
+		GetSkip();
 	}
 	return tmp;
 }

@@ -3,6 +3,8 @@
 #include <string.h> 
 #include <assert.h>
 #include <iostream>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -20,14 +22,14 @@ enum c_type
 
 class CNode
 {
-	public:
+	private:
 		c_type type;
 		double num;
 		char sign;
 		char var;
 		CNode* left;
 		CNode* right;
-		CNode* prev;
+		CNode* prev; //Не нужно
 	public:
 		CNode();
 		~CNode();
