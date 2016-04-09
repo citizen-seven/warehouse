@@ -11,10 +11,9 @@ class Math
 		string str;
 	public:
 		Math();
-		~Math();
-		void GetEquation();
-		void PrepareEquation();
-		void GetSkip();
+		string GetEquation();
+		string PrepareEquation();
+		void PutStr(string st);
 		CNode* GetNum();                      //Num :: = ['0' - '9'] +
 		CNode* GetExp();                      //Exp :: = MulDiv {['+' '-']MulDiv}*
 		CNode* GetMulDiv();                   //MulDiv :: = Pas {['*' '/'] Pas}*

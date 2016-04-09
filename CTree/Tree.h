@@ -29,9 +29,10 @@ class CNode
 		char var;
 		CNode* left;
 		CNode* right;
-		CNode* prev; //Не нужно
 	public:
 		CNode();
+		CNode(double val);
+		CNode(c_type t_type, char data, CNode* left, CNode* right);
 		~CNode();
 		CNode* TieLeft(CNode* MyLeft);
 		CNode* TieRight(CNode* MyRight);
@@ -45,7 +46,6 @@ class CNode
 		char GetVar() { return var; }
 		CNode* GoLeft() { return left; }
 		CNode* GoRight() { return right; }
-		CNode* GoPrev() { return prev; }
 		void GoDump(int tab);
 };
 
