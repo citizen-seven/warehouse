@@ -33,7 +33,7 @@ string Math::PrepareEquation()
         {
             if ((*S == ' ') || (*S == 10))
             {}
-            else if(((*S >= '0') && (*S <= '9')) || (*S == '+') || (*S == '-') || (*S == '*') || (*S == '/'))
+            else if(((*S >= '0') && (*S <= '9')) || ((*S >= 'a') && (*S <= 'z')) || (*S == '+') || (*S == '-') || (*S == '*') || (*S == '/'))
             {
                 tmp += *S;
             }
@@ -108,13 +108,13 @@ CNode* Math::GetExp()
         if (*S == '+') 
         {
             S++;
-            CNode* tmp1 = new CNode(Sign, '+', tmp, GetMulDiv());
+            CNode* tmp1 = new CNode('+', tmp, GetMulDiv());
             tmp = tmp1;
         }
         else if (*S == '-')
         {
             S++;
-            CNode* tmp1 = new CNode(Sign, '-', tmp, GetMulDiv());
+            CNode* tmp1 = new CNode('-', tmp, GetMulDiv());
             tmp = tmp1;
         }
     }
@@ -129,18 +129,57 @@ CNode* Math::GetMulDiv()
         if (*S == '*') 
         {
             S++;
-            CNode* tmp1 = new CNode(Sign, '*', tmp, GetPas());
+            CNode* tmp1 = new CNode('*', tmp, GetPas());
             tmp = tmp1;
         }
         else if (*S == '/')
         {
             S++;
-            CNode* tmp1 = new CNode(Sign, '/', tmp, GetPas());
+            CNode* tmp1 = new CNode('/', tmp, GetPas());
             tmp = tmp1;
         }
     }
     return tmp;
 }
+
+CNode* Math::GetFunc()
+{
+    CNode* tmp;
+    string f;
+    while((*S != '('))
+    {
+        f += *S;
+        S++;
+    }
+    S++;
+    try
+    {
+        if (strcmp(f.c_str(), "sin") == 0)
+        {
+            tmp = new CNode("sin", GetExp());
+        }
+        else if (strcmp(f.c_str(), "cos") == 0)
+        {
+            tmp = new CNode("cos", GetExp());
+        }
+        else if (strcmp(f.c_str(), "ln") == 0)
+        {
+            tmp = new CNode("ln", GetExp());
+        }
+        else
+        {
+            throw string ("This function not exist. Please correct expression\n");
+        }
+        S++;
+    }
+    catch (string ex)
+    {
+        cout << ex << endl;
+        exit(1);
+    }
+    return tmp;
+}
+
 
 CNode*  Math::GetPas()
 {
@@ -161,7 +200,18 @@ CNode*  Math::GetPas()
         }
         S++;
     }
-    else 
-    tmp = GetNum();
+    else if (*S == 'x')
+    {
+        S++;
+        tmp = new CNode('x');
+    }
+    else if (((*S >= 'a') && (*S <= 'z')))
+    {
+        tmp = GetFunc();
+    }
+    else
+    {
+        tmp = GetNum();
+    }
     return tmp;
 }
