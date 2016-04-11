@@ -27,7 +27,7 @@ CNode* CNode::TieRight(CNode* MyRight)
     right = MyRight;
     return this;
 }
-
+*/
 void CNode::PutNum(c_type tp, double nm)
 {
     type = tp;
@@ -45,17 +45,21 @@ void CNode::PutVar(c_type tp, char vr)
     type = tp;
     var = vr;    
 }
-*/
+
 void CNode::GoDump(int tab)
 {
     if(this != NULL)
     {
         int i = 0;
         left -> GoDump(tab + 1);
-        for(i = 0; i < tab; i++) printf("  ");
+        for(i = 0; i < tab - 1; i++)
+        { 
+            cout <<"    ";
+        }
+        //cout << "---->";
         switch(type)
         {
-            case (0):{ cout << num; break; }
+            case (0):{ cout << num; break; } //выводит большие числа в виде X.XXXXXe+XX
             case (1):{ cout << sign; break; }
             case (2):{ cout << var; break; }
             case (3):{ cout << func; break; }

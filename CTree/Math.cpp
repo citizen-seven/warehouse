@@ -33,7 +33,7 @@ string Math::PrepareEquation()
         {
             if ((*S == ' ') || (*S == 10))
             {}
-            else if(((*S >= '0') && (*S <= '9')) || ((*S >= 'a') && (*S <= 'z')) || (*S == '+') || (*S == '-') || (*S == '*') || (*S == '/'))
+            else if(((*S >= '0') && (*S <= '9')) || ((*S >= 'a') && (*S <= 'z')) || (*S == '+') || (*S == '-') || (*S == '*') || (*S == '/') || (*S == '^'))
             {
                 tmp += *S;
             }
@@ -123,19 +123,19 @@ CNode* Math::GetExp()
 
 CNode* Math::GetMulDiv()
 {
-    CNode* tmp= GetPas();
+    CNode* tmp= GetPov();
     while(*S == '*' || *S == '/')
     {
         if (*S == '*') 
         {
             S++;
-            CNode* tmp1 = new CNode('*', tmp, GetPas());
+            CNode* tmp1 = new CNode('*', tmp, GetPov());
             tmp = tmp1;
         }
         else if (*S == '/')
         {
             S++;
-            CNode* tmp1 = new CNode('/', tmp, GetPas());
+            CNode* tmp1 = new CNode('/', tmp, GetPov());
             tmp = tmp1;
         }
     }
@@ -166,7 +166,11 @@ CNode* Math::GetFunc()
         {
             tmp = new CNode("ln", GetExp());
         }
-        else
+        else if (strcmp(f.c_str(), "tg") == 0)
+        {
+            tmp = new CNode("tg", GetExp());
+        }
+        else 
         {
             throw string ("This function not exist. Please correct expression\n");
         }
@@ -212,6 +216,18 @@ CNode*  Math::GetPas()
     else
     {
         tmp = GetNum();
+    }
+    return tmp;
+}
+
+CNode* Math::GetPov()
+{
+    CNode* tmp = GetPas();
+    while(*S == '^')
+    {   
+            S++;
+            CNode* tmp1 = new CNode('^', tmp, GetPas());
+            tmp = tmp1;
     }
     return tmp;
 }

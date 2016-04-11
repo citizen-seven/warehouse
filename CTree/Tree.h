@@ -34,21 +34,22 @@ class CNode
         CNode();
         CNode(double val);
         CNode(char t_var);
-        CNode(char data, CNode* left, CNode* right);
+        CNode(char data, CNode* t_left, CNode* t_right);
         CNode(string, CNode* t_left);
         ~CNode();
         //CNode* TieLeft(CNode* MyLeft);
         //CNode* TieRight(CNode* MyRight);
 
-        //void PutNum(c_type tp, double num);
-        //void PutSign(c_type tp, char sg);
-        //void PutVar(c_type tp, char vr);
-        //c_type GetType() { return type; }
-        //double GetNum() { return num; }
-        //char GetSign() { return sign; }
-        //char GetVar() { return var; }
-        //CNode* GoLeft() { return left; }
-        //CNode* GoRight() { return right; }
+        void PutNum(c_type tp, double num);
+        void PutSign(c_type tp, char sg);
+        void PutVar(c_type tp, char vr);
+        c_type GetType() { return type; }
+        double GetNum() { return num; }
+        char GetSign() { return sign; }
+        char GetVar() { return var; }
+        string GetFun() { return func; }
+        CNode* GoLeft() { return left; }
+        CNode* GoRight() { return right; }
         void GoDump(int tab);
 };
 
