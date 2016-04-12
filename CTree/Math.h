@@ -15,8 +15,8 @@ class Math
         string PrepareEquation();
         void PutStr(string st);
         CNode* GetExp();                      //Exp :: = MulDiv {['+' '-']MulDiv}*
-        CNode* GetMulDiv();                   //MulDiv :: = Pov {['*' '/'] Pov}*
-        CNode* GetPov();                      //Pov :: = Pas {['^'] Pas}* 
+        CNode* GetMulDiv();                   //MulDiv :: = Pow {['*' '/'] Pow}*
+        CNode* GetPow();                      //Pow :: = Pas {['^'] Pas}
         CNode* GetPas();                      //Pas:: = '(' Exp ')' | Num | F | x
         CNode* GetFunc();                     //Func:: = f '(' Exp ')' 
         CNode* GetNum();                      //Num :: = ['0' - '9']+

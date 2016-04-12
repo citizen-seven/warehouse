@@ -40,9 +40,9 @@ class CNode
         //CNode* TieLeft(CNode* MyLeft);
         //CNode* TieRight(CNode* MyRight);
 
-        void PutNum(c_type tp, double num);
-        void PutSign(c_type tp, char sg);
-        void PutVar(c_type tp, char vr);
+        //void PutNum(c_type tp, double num);
+        //void PutSign(c_type tp, char sg);
+        //void PutVar(c_type tp, char vr);
         c_type GetType() { return type; }
         double GetNum() { return num; }
         char GetSign() { return sign; }

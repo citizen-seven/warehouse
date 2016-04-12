@@ -31,9 +31,7 @@ string Math::PrepareEquation()
     {
         for(S = str.begin(); S != str.end(); S++) 
         {
-            if ((*S == ' ') || (*S == 10))
-            {}
-            else if(((*S >= '0') && (*S <= '9')) || ((*S >= 'a') && (*S <= 'z')) || (*S == '+') || (*S == '-') || (*S == '*') || (*S == '/') || (*S == '^'))
+            if(((*S >= '0') && (*S <= '9')) || ((*S >= 'a') && (*S <= 'z')) || (*S == '+') || (*S == '-') || (*S == '*') || (*S == '/') || (*S == '^'))
             {
                 tmp += *S;
             }
@@ -57,7 +55,7 @@ string Math::PrepareEquation()
             {
                 break;
             }
-            else
+            else if((*S != ' ') && (*S != 10))
             {
                 throw string("Incorrect expression. Please correct it\n") ;
             }
@@ -75,30 +73,6 @@ string Math::PrepareEquation()
     return tmp;
 }
 
-
-CNode* Math::GetNum()
-{
-    double val = 0.0;
-    string::iterator debug = S;
-    while('0' <= *S && *S <= '9')
-    {
-        val = val*10 + *S - '0';
-        S++;
-    }
-    try
-    {
-        if(debug == S)
-            throw string("Expected number. Please correct expression\n");
-    }
-    catch(string ex)
-    {
-        cout << ex << endl;
-        exit(1);
-    }
-    
-    CNode* tmp = new CNode(val);
-    return tmp;
-} 
 
 CNode* Math::GetExp()
 {
@@ -123,21 +97,68 @@ CNode* Math::GetExp()
 
 CNode* Math::GetMulDiv()
 {
-    CNode* tmp= GetPov();
+    CNode* tmp= GetPow();
     while(*S == '*' || *S == '/')
     {
         if (*S == '*') 
         {
             S++;
-            CNode* tmp1 = new CNode('*', tmp, GetPov());
+            CNode* tmp1 = new CNode('*', tmp, GetPow());
             tmp = tmp1;
         }
         else if (*S == '/')
         {
             S++;
-            CNode* tmp1 = new CNode('/', tmp, GetPov());
+            CNode* tmp1 = new CNode('/', tmp, GetPow());
             tmp = tmp1;
         }
+    }
+    return tmp;
+}
+
+CNode* Math::GetPow()
+{
+    CNode* tmp = GetPas();
+    if(*S == '^')
+    {   
+            S++;
+            CNode* tmp1 = new CNode('^', tmp, GetPas());
+            tmp = tmp1;
+    }
+    return tmp;
+}
+
+CNode*  Math::GetPas()
+{
+    CNode* tmp;
+    if (*S == '(')
+    {
+        S++;
+        tmp = GetExp();
+        try
+        {
+            if (*S != ')')
+                throw string ("Expected ')'. Please correct expression\n");
+        }
+        catch(string ex)
+        {
+            cout << ex << endl;
+            exit(1);
+        }
+        S++;
+    }
+    else if (*S == 'x') //пока считаем, что переменная только x( потом добавить все переменные)
+    {
+        S++;
+        tmp = new CNode('x');
+    }
+    else if (((*S >= 'a') && (*S <= 'z')))
+    {
+        tmp = GetFunc();
+    }
+    else
+    {
+        tmp = GetNum();
     }
     return tmp;
 }
@@ -146,7 +167,7 @@ CNode* Math::GetFunc()
 {
     CNode* tmp;
     string f;
-    while((*S != '('))
+    while(*S != '(')
     {
         f += *S;
         S++;
@@ -184,50 +205,26 @@ CNode* Math::GetFunc()
     return tmp;
 }
 
-
-CNode*  Math::GetPas()
+CNode* Math::GetNum()
 {
-    CNode* tmp;
-    if (*S == '(')
+    double val = 0.0;
+    string::iterator debug = S;
+    while('0' <= *S && *S <= '9')
     {
-        S++;
-        tmp = GetExp();
-        try
-        {
-            if (*S != ')')
-                throw string ("Expected ')'. Please correct expression\n");
-        }
-        catch(string ex)
-        {
-            cout << ex << endl;
-            exit(1);
-        }
+        val = val*10 + *S - '0';
         S++;
     }
-    else if (*S == 'x')
+    try
     {
-        S++;
-        tmp = new CNode('x');
+        if(debug == S)
+            throw string("Expected number. Please correct expression\n");
     }
-    else if (((*S >= 'a') && (*S <= 'z')))
+    catch(string ex)
     {
-        tmp = GetFunc();
+        cout << ex << endl;
+        exit(1);
     }
-    else
-    {
-        tmp = GetNum();
-    }
+    
+    CNode* tmp = new CNode(val);
     return tmp;
-}
-
-CNode* Math::GetPov()
-{
-    CNode* tmp = GetPas();
-    while(*S == '^')
-    {   
-            S++;
-            CNode* tmp1 = new CNode('^', tmp, GetPas());
-            tmp = tmp1;
-    }
-    return tmp;
-}
+} 
