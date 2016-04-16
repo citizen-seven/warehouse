@@ -17,37 +17,7 @@ CNode::~CNode()
     left = NULL;
     right = NULL;
 }
-/*
-CNode* CNode::TieLeft(CNode* MyLeft)
-{
-    left = MyLeft;
-    return this;
-}
 
-CNode* CNode::TieRight(CNode* MyRight)
-{
-    right = MyRight;
-    return this;
-}
-
-void CNode::PutNum(c_type tp, double nm)
-{
-    type = tp;
-    num = nm;
-}
-
-void CNode::PutSign(c_type tp, char sg)
-{
-    type = tp;
-    sign = sg;
-}
-
-void CNode::PutVar(c_type tp, char vr)
-{
-    type = tp;
-    var = vr;    
-}
-*/
 void CNode::GoDump(int tab)
 {
     if(this != NULL)
@@ -160,25 +130,6 @@ void print_data (ofstream& latex, CNode* tree) {
         latex << tree->GetFun();
     }
 }
-
-/*int print_equation(CNode* tree) {
- std::ofstream latex ("equation.tex");
- latex << "\\documentclass[a4paper, 12pt, twoside]{article}\n\
- \\usepackage[T2A,T1]{fontenc}\n\
- \\usepackage[utf8]{inputenc}\n\
- \\usepackage[russian,english]{babel}\n\
- \\usepackage{amsmath}\n\
- \\begin{document}\n\
- \\begin{otherlanguage*}{russian}\n\
- Вывод выражения, поехали!" << std::endl;
- latex << "\n" << "$$";
- print_node(latex, tree);
- latex << "$$" << std::endl;
- latex << "\\end{otherlanguage*}\n\
- \\end{document}" << std::endl;
- latex.close();
- return 0;
- }*/
 
 int print_tree(CNode* tree) {
     std::ofstream output ("tree.tex");
