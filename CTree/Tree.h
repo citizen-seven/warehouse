@@ -51,6 +51,8 @@ class CNode
         CNode* GoLeft() { return left; }
         CNode* GoRight() { return right; }
         void GoDump(int tab);
+        friend CNode* derivate(const CNode*);
+        friend CNode* const_optimization(const CNode*);
 };
 
 #endif 
