@@ -9,6 +9,10 @@ int main()
     CNode* node = test.GetExp();
     node -> GoDump(1);
 
+    CNode* der = derivate(node);
+    der -> GoDump(1);
+
+    delete der;
     delete node;
     return 0;
 }
